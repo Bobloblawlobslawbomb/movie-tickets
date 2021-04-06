@@ -14,10 +14,103 @@ function Movie(movieName, movieShowings, movieRating, moviePrice, movieRunTime) 
   this.movieRating = movieRating
   this.moviePrice = moviePrice
 }
+//by here the database has been made of Movie objects
+//Trying out
+// Business Logic for MovieDetails ---------
+function MovieDetails() {
+  this.movies = {};
+  this.currentId = 0;
+}
+
+MovieDetails.prototype.assignId = function () {
+  this.currentId += 1;
+  return this.currentId;
+}
+
+MovieDetails.prototype.addMovie = function (movie) {
+  movie.id = this.assignId();
+  this.movies[movie.id] = movie;
+}
+
+MovieDetails.prototype.findMovie = function (id) {
+  if (this.movies[id] != undefined) {
+    return this.movies[id];
+  }
+  return false;
+}
+
+MovieDetails.prototype.deleteMovie = function (id) {
+  if (this.movies[id] === undefined) {
+    return false;
+  }
+  delete this.movies[id];
+  return true;
+}
+//end of try out
+//UI LOGIC
 
 movieTitles.forEach(function (Title) {
   console.log(Title.movieName);
 })
+
+
+function displayMovieDetails(movieDetailsToDisplay) {
+  let movieList = $("ul#movie-list")
+  let htmlForMovieListInfo = ""
+  Object.keys(movieDetailsToDisplay.movies).forEach(function (key) {
+    const movie = movieDetailsToDisplay.findMovie(key)
+    htmlForMovieListInfo += "<li id=" + movie.id + ">" + movie.movieName + " " + movie.movieShowings + "</li>"
+  })
+  movieList.html(htmlForMovieListInfo)
+}
+
+
+
+
+
+
+
+
+
+// Business Logic for MovieDetails ---------
+function MovieDetails() {
+  this.movies = {};
+  this.currentId = 0;
+}
+
+MovieDetails.prototype.assignId = function () {
+  this.currentId += 1;
+  return this.currentId;
+}
+
+MovieDetails.prototype.addMovie = function (movie) {
+  movie.id = this.assignId();
+  this.movies[movie.id] = movie;
+}
+
+MovieDetails.prototype.findMovie = function (id) {
+  if (this.movies[id] != undefined) {
+    return this.movies[id];
+  }
+  return false;
+}
+
+MovieDetails.prototype.deleteMovie = function (id) {
+  if (this.movies[id] === undefined) {
+    return false;
+  }
+  delete this.movies[id];
+  return true;
+}
+
+
+
+
+
+
+
+
+
 
 
 // Movie.forEach(function(movieName){
@@ -71,3 +164,15 @@ function displayContactDetails(addressBookToDisplay) {
 //   });
 //   console.log("\n");
 // });
+
+/*
+function displayMovieDetails(addressBookToDisplay/*gonna change this parameter) {
+  let movieList = $("ul#movie-list")
+  let htmlForContactInfo = ""
+  Object.keys(addressBookToDisplay.contacts).forEach(function (key) {
+    const contact = addressBookToDisplay.findContact(key)
+    htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>"
+  })
+  contactsList.html(htmlForContactInfo)
+}
+*/
